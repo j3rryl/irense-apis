@@ -1,0 +1,7 @@
+pip install virtualenv
+python -m virtualenv env
+env\scripts\(activate | deactivate)
+pip install django
+django-admin
+django-admin start project irense-apis
+python manage.py runserver http://127.0.0.1:8000/
