@@ -4,3 +4,4 @@ env\scripts\(activate | deactivate)
 pip install django
 django-admin
 django-admin start project irense-apis
+new project idea???
