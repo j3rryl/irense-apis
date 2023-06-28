@@ -6,3 +6,7 @@ django-admin
 django-admin start project irense-apis
 python manage.py runserver -> http://127.0.0.1:8000/
 py manage.py startapp base
+
+py manage.py migrate
+py manage.py makemigrations
+py manage.py createsuperuser
