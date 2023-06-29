@@ -1,6 +1,6 @@
 pip install virtualenv
 python -m virtualenv env
-env\scripts\(activate | deactivate)
+env\scripts\activate | deactivate)
 pip install django
 django-admin
 django-admin start project irense-apis

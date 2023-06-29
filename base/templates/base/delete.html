@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method ="POST" action ="">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{obj}}"</p>
+    <a href="{{request.META.HTTP_REFERER">Go back</a>
+    <input type="submit" value="Submit" />
+</form>
+</body>
+</html>
