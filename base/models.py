@@ -1,10 +1,22 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+class Topic(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
 class Room(models.Model):
+    topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
+    host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    # topic = models.ForeignKey('Topic', on_delete=models.CASCADE) if topic was below
+
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    updated = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -21,8 +33,8 @@ class Message(models.Model):
 
 
 class Patient(models.Model):
-    first_name=models.TextField(null=False)
-    last_name=models.TextField(null=False)
+    first_name=models.CharField(max_length=200,null=False)
+    last_name=models.CharField(max_length=200,null=False)
     email=models.EmailField(null=True, blank=True)
     phone_number=models.TextField(null=False)
     age=models.IntegerField(null=False)
@@ -34,14 +46,14 @@ class Patient(models.Model):
         return self.first_name+" "+self.last_name
 
 
-class User(models.Model):
-    first_name=models.TextField(null=False)
-    last_name=models.TextField(null=False)
-    email=models.EmailField(null=True, blank=True)
-    phone_number=models.TextField(null=False)
-    age=models.IntegerField(null=False)
-    gender=models.TextField(null=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+# class User(models.Model):
+#     first_name=models.TextField(null=False)
+#     last_name=models.TextField(null=False)
+#     email=models.EmailField(null=True, blank=True)
+#     phone_number=models.TextField(null=False)
+#     age=models.IntegerField(null=False)
+#     gender=models.TextField(null=False)
+#     created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Test(models.Model):
