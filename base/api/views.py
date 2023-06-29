@@ -22,7 +22,4 @@ def getRooms(request):
 def getRoom(request, pk):
     room = Room.objects.get(id=pk)
     serializer = RoomSerializer(room, many=False)
-    if room:
-        return Response([])
-    else:
-        return Response(serializer.data)
+    return Response(serializer.data)
