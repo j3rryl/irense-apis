@@ -38,9 +38,9 @@ class Patient(models.Model):
     first_name=models.CharField(max_length=200,null=False)
     last_name=models.CharField(max_length=200,null=False)
     email=models.EmailField(null=True, blank=True)
-    phone_number=models.TextField(null=False)
+    phone_number=models.CharField(max_length=200,null=False)
     age=models.IntegerField(null=False)
-    gender=models.TextField(null=False)
+    gender=models.CharField(max_length=200,null=False)
     last_test_date=models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
