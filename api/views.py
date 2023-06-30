@@ -1,7 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from base.models import Room
-from base.models import Patient
+from .models import Room, Patient
 from .serializers import RoomSerializer, PatientSerializer
 
 @api_view(['GET'])
@@ -34,7 +33,7 @@ def getPatients(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def getPatient(request):
-    patient = Patient.objects.all()
-    serializer = PatientSerializer(patient, many=True)
+def getPatient(request, pk):
+    patient = Patient.objects.get(id=pk)
+    serializer = PatientSerializer(patient, many=False)
     return Response(serializer.data)
