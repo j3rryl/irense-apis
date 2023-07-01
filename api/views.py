@@ -27,8 +27,19 @@ def getAddPatients(request):
             serializer.save()
             return Response(ResponseMessages.create_entity("Patient", True), status=status.HTTP_201_CREATED)
         return Response(ResponseMessages.create_entity("Patient", False), status=status.HTTP_400_BAD_REQUEST)
-@api_view(['GET'])
-def getPatient(request, pk):
+@api_view(['GET', 'PUT', 'DELETE'])
+def modifyPatient(request, pk):
     patient = Patient.objects.get(id=pk)
-    serializer = PatientSerializer(patient, many=False)
-    return Response(serializer.data)
+
+    if request.method == 'GET':
+        serializer = PatientSerializer(patient, many=False)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = PatientSerializer(patient, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(ResponseMessages.modify_entity('Patient', True, 'PUT'))
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        patient.delete()
+        return Response(ResponseMessages.modify_entity('Patient', True, 'PUT'),status=status.HTTP_204_NO_CONTENT)
