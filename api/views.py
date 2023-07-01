@@ -1,37 +1,32 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Room, Patient
-from .serializers import RoomSerializer, PatientSerializer
+from .models import Patient
+from .serializers import PatientSerializer
+from rest_framework import status
+from .responses import ResponseMessages
+
 
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
-        'GET /api',
-        'GET /api/rooms',
-        'GET /api/rooms/:id',
         'GET /api/patients',
-        'GET /api/patients/:id'
+        'GET /api/patients/:id',
+        'POST /api/patients/add'
     ]
     return Response(routes)
 
-@api_view(['GET'])
-def getRooms(request):
-    rooms = Room.objects.all()
-    serializer = RoomSerializer(rooms, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def getRoom(request, pk):
-    room = Room.objects.get(id=pk)
-    serializer = RoomSerializer(room, many=False)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def getPatients(request):
-    patients = Patient.objects.all()
-    serializer = PatientSerializer(patients, many=True)
-    return Response(serializer.data)
-
+@api_view(['GET', 'POST'])
+def getAddPatients(request):
+    if request.method == 'GET':
+        patients = Patient.objects.all()
+        serializer = PatientSerializer(patients, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = PatientSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(ResponseMessages.create_entity("Patient", True), status=status.HTTP_201_CREATED)
+        return Response(ResponseMessages.create_entity("Patient", False), status=status.HTTP_400_BAD_REQUEST)
 @api_view(['GET'])
 def getPatient(request, pk):
     patient = Patient.objects.get(id=pk)
