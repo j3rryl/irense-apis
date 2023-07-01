@@ -43,7 +43,7 @@ class Patient(models.Model):
     email = models.EmailField(null=True, blank=True)
     phone = models.CharField(max_length=200, null=False)
     age = models.IntegerField(null=False)
-    status = models.CharField(max_length=200, null=False)
+    status = models.CharField(max_length=10, default='active')
     gender = models.CharField(max_length=200, null=False)
     last_tested = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
