@@ -42,4 +42,4 @@ def modifyPatient(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'DELETE':
         patient.delete()
-        return Response(ResponseMessages.modify_entity('Patient', True, 'PUT'),status=status.HTTP_204_NO_CONTENT)
+        return Response(ResponseMessages.modify_entity('Patient', True, 'PUT'))
