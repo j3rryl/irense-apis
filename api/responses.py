@@ -4,22 +4,23 @@ class ResponseMessages():
         if success:
             response_message = {
                 'success': True,
-                'message': self + ' created successfully.'
+                'message': f'{self} created successfully.'
             }
         else:
             response_message = {
                 'success': False,
-                'message': 'Error creating '+ self + '.'
+                'message': f'Error creating {self}.'
             }
         return response_message
 
     def modify_entity(self, success, method):
+        message = ''
         if method == 'GET':
-            message = self + ' fetched successfully.'
+            message = f'{self} fetched successfully.'
         elif method == 'PUT':
-            message = self + ' edited successfully.'
+            message = f'{self} updated successfully.'
         elif method == 'DELETE':
-            message = self + ' deleted successfully.'
+            message = f'{self} deleted successfully.'
         if success:
             response_message = {
                 'success': True,
